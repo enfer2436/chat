@@ -2621,11 +2621,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // 梦角发朋友圈动作执行器
     function triggerDreamPostAutomated() {
         let charName = "梦角";
-        let charAvatar = "https://file.youtochat.com/images/20260216/1771224856844_qdqqd.jpeg";
-        try {
-            charName = document.querySelector('.header-info .char-name')?.innerText || "梦角";
-            charAvatar = document.querySelector('.header-avatar img')?.src || charAvatar;
-        } catch(e) {}
+let charAvatar = "https://file.youtochat.com/images/20260216/1771224856844_qdqqd.jpeg";
+try {
+    charName = document.getElementById('partner-name')?.innerText?.trim() || "梦角";
+    const partnerAvatarImg = document.getElementById('partner-avatar')?.querySelector('img');
+    if(partnerAvatarImg && partnerAvatarImg.src) charAvatar = partnerAvatarImg.src;
+} catch(e) {}
+
 
         const textPool = momentsConfig.pool.length > 0 ? momentsConfig.pool : ["✦ 我们的故事，写在风里。"];
         const randomText = textPool[Math.floor(Math.random() * textPool.length)];
@@ -2657,11 +2659,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // 打开/关闭大面板与属性数据实时抓取同步
     if(navBtn) navBtn.addEventListener('click', () => {
         try {
-            const globalUserNick = document.querySelector('.header-info .user-name')?.innerText || "我";
-            const globalUserAvatar = document.querySelector('.header-avatar img')?.src;
-            if(globalUserNick) document.getElementById('m-user-name').innerText = globalUserNick;
-            if(globalUserAvatar) document.getElementById('m-user-avatar').src = globalUserAvatar;
-        } catch(e) {}
+    const globalUserNick = document.getElementById('my-name')?.innerText?.trim() || "我";
+    const globalUserAvatarImg = document.getElementById('my-avatar')?.querySelector('img');
+    document.getElementById('m-user-name').innerText = globalUserNick;
+    if(globalUserAvatarImg && globalUserAvatarImg.src) {
+        document.getElementById('m-user-avatar').src = globalUserAvatarImg.src;
+    }
+} catch(e) {}
+
         modal.style.display = 'flex';
     });
     closeBtn.addEventListener('click', () => modal.style.display = 'none');
@@ -2781,7 +2786,8 @@ document.addEventListener('DOMContentLoaded', function() {
             if(index === -1) return;
 
             let charName = "梦角";
-            try { charName = document.querySelector('.header-info .char-name')?.innerText || "梦角"; } catch(e) {}
+try { charName = document.getElementById('partner-name')?.innerText?.trim() || "梦角"; } catch(e) {}
+
 
             // 执行点赞
             if(momentsConfig.autoLike) {
@@ -2809,7 +2815,8 @@ document.addEventListener('DOMContentLoaded', function() {
         streamContainer.innerHTML = '';
         
         let globalCharName = "梦角";
-        try { globalCharName = document.querySelector('.header-info .char-name')?.innerText || "梦角"; } catch(e) {}
+try { globalCharName = document.getElementById('partner-name')?.innerText?.trim() || "梦角"; } catch(e) {}
+
 
         localMomentsData.forEach(item => {
             const div = document.createElement('div');
